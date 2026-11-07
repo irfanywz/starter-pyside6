@@ -1,0 +1,175 @@
+/* Template QSS. Token warna ditulis @nama@ dan diisi dari app/ui/theme.py (TOKENS).
+ * Ubah tampilan: edit file ini ATAU taruh override di <APP_ID>_Data/custom.qss
+ * (custom.qss dimuat terakhir, tanpa perlu build ulang). Token tetap bisa dipakai di sana. */
+
+/* Tipografi: satu family (@font_family@) + skala ukuran: small / base / title.
+ * Jangan menulis font-family lain di bawah; ubah di FONT (app/ui/theme.py). */
+* {
+    font-family: @font_family@;
+    font-size: @fs_base@;
+    color: @text@;
+}
+
+QMainWindow, QDialog { background: transparent; }
+
+/* Root transparan; area margin resize dilukis alpha 1/255 di FramelessRoot.paintEvent (bukan di QSS!) */
+#Root { background: transparent; }
+
+#AppFrame {
+    background: @bg@;
+    border: 1px solid @border@;
+    border-radius: 10px;
+}
+#AppFrame[maximized="true"] { border-radius: 0; border: none; }
+
+/* ---------- Titlebar ---------- */
+#TitleBar {
+    background: @surface@;
+    border-bottom: 1px solid @border@;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+#AppFrame[maximized="true"] #TitleBar { border-radius: 0; }
+#TitleLabel { font-size: @fs_base@; font-weight: 600; color: @text_muted@; }
+
+#TitleBtn, #CloseBtn {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    min-width: 46px;
+    max-width: 46px;
+    min-height: 36px;
+    max-height: 36px;
+}
+#TitleBtn:hover { background: @hover@; }
+#TitleBtn:pressed { background: @border@; }
+#CloseBtn:hover { background: @danger@; }
+#TitleBar #CloseBtn { border-top-right-radius: 9px; }
+#AppFrame[maximized="true"] #TitleBar #CloseBtn { border-top-right-radius: 0; }
+
+/* ---------- Sidebar ---------- */
+/* Panel tersendiri (warna surface, seperti titlebar) + pembatas: garis kanan, garis antar grup menu.
+ * Item aktif: indikator kiri 3px berwarna aksen + latar tipis. */
+#Sidebar {
+    background: @surface@;
+    border: none;
+    border-right: 1px solid @border@;
+    border-bottom-left-radius: 9px;
+}
+#AppFrame[maximized="true"] #Sidebar { border-bottom-left-radius: 0; }
+#NavDivider { background: @border@; border: none; }
+
+#Sidebar QPushButton {
+    background: transparent;
+    border: none;
+    border-left: 3px solid transparent;
+    border-radius: 0;
+    color: @text_muted@;
+    font-size: @fs_base@;
+    font-weight: 500;
+    text-align: left;
+    padding: 0 14px;
+    min-height: 40px;
+}
+#Sidebar QPushButton:hover { background: @hover@; color: @text@; }
+#Sidebar QPushButton:pressed { background: @accent_soft@; }
+#Sidebar QPushButton:checked {
+    background: @accent_soft@;
+    border-left: 3px solid @accent@;
+    color: @accent@;
+    font-weight: 600;
+}
+
+/* ---------- Konten ---------- */
+#Pages { background: transparent; }
+QLabel#PageTitle { font-size: @fs_title@; font-weight: 600; }
+QLabel#Muted { color: @text_muted@; }
+
+/* ---------- Kontrol umum ---------- */
+QPushButton {
+    background: @surface_alt@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 6px 14px;
+}
+QPushButton:hover { background: @hover@; border-color: @accent@; }
+QPushButton:pressed { background: @accent_soft@; }
+QPushButton:disabled { color: @text_muted@; }
+QPushButton#Primary { background: @accent@; border-color: @accent@; color: #ffffff; }
+QPushButton#Primary:hover { background: @accent_hover@; }
+QPushButton#Danger { background: @danger@; border-color: @danger@; color: #ffffff; }
+QPushButton#Danger:hover { background: @danger@; border-color: @text@; }
+
+QLineEdit, QComboBox, QSpinBox, QPlainTextEdit, QTextEdit {
+    background: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 5px 8px;
+    selection-background-color: @accent@;
+    selection-color: #ffffff;
+}
+QLineEdit:focus, QComboBox:focus, QSpinBox:focus,
+QPlainTextEdit:focus, QTextEdit:focus { border-color: @accent@; }
+
+QCheckBox { spacing: 8px; }
+
+QScrollBar:vertical { background: transparent; width: 10px; margin: 0; }
+QScrollBar::handle:vertical { background: @border@; border-radius: 5px; min-height: 30px; }
+QScrollBar::handle:vertical:hover { background: @text_muted@; }
+QScrollBar:horizontal { background: transparent; height: 10px; margin: 0; }
+QScrollBar::handle:horizontal { background: @border@; border-radius: 5px; min-width: 30px; }
+QScrollBar::handle:horizontal:hover { background: @text_muted@; }
+QScrollBar::add-line, QScrollBar::sub-line { width: 0; height: 0; }
+QScrollBar::add-page, QScrollBar::sub-page { background: transparent; }
+
+QToolTip {
+    background: @surface_alt@;
+    color: @text@;
+    border: 1px solid @border@;
+    padding: 4px 6px;
+}
+
+/* Menu (termasuk menu tray) */
+QMenu {
+    background: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 4px;
+}
+QMenu::item { padding: 6px 22px; border-radius: 4px; }
+QMenu::item:selected { background: @accent_soft@; }
+QMenu::separator { height: 1px; background: @border@; margin: 4px 6px; }
+
+/* ---------- Toast (tengah bawah) ---------- */
+#Toast {
+    background: @surface_alt@;
+    border: 1px solid @border@;
+    border-radius: 8px;
+}
+#Toast[kind="success"] { border-color: @success@; }
+#Toast[kind="error"] { border-color: @danger@; }
+#ToastLabel { background: transparent; font-size: @fs_base@; font-weight: 500; }
+
+/* ---------- Dialog (app/ui/dialogs.py) ---------- */
+#DialogFrame {
+    background: @bg@;
+    border: 1px solid @border@;
+    border-radius: 10px;
+}
+#DialogTitle { font-size: @fs_heading@; font-weight: 600; }
+#DialogMessage { color: @text_muted@; }
+
+/* ---------- Komponen (app/ui/components) ---------- */
+#Card {
+    background: @surface@;
+    border: 1px solid @border@;
+    border-radius: 10px;
+}
+#CardTitle { font-size: @fs_base@; font-weight: 600; color: @text_muted@; padding-bottom: 2px; }
+#Divider { background: @border@; border: none; }
+#SettingTitle { font-weight: 500; }
+#SettingDesc { color: @text_muted@; font-size: @fs_small@; }
+
+/* Backdrop di belakang dialog (app/ui/dialogs.py) */
+#Backdrop { background: @backdrop@; border-radius: 10px; }
+#AppFrame[maximized="true"] #Backdrop { border-radius: 0; }
