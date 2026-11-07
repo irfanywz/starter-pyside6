@@ -1,6 +1,6 @@
 [project]
 name = "starter"
-version = "0.6.0"  # harus sama dengan APP_VERSION di app/meta.py (build.py memeriksanya)
+version = "0.6.1"  # harus sama dengan APP_VERSION di app/meta.py (build.py memeriksanya)
 description = "Starter GUI PySide6"
 requires-python = ">=3.10"
 dependencies = [

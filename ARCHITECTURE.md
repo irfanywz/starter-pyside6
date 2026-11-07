@@ -14,7 +14,6 @@ build.py                PyInstaller + zip bundle (cek versi pyproject == meta)
 pyproject.toml          dependency (uv), versi
 tools/
   make_icon.py          generator ikon default (stdlib) -> assets/icon.ico + icon.png
-  smoke_test.py         smoke test offscreen (dijalankan otomatis oleh build.py)
   version_info.py       generator file version-info Windows untuk PyInstaller
   rename_app.py         ganti APP_ID / nama tampilan / nama proyek (+ reset versi & CHANGELOG)
   bump_version.py       naikkan versi di meta.py + pyproject.toml + kerangka entri CHANGELOG
@@ -87,11 +86,8 @@ Event `WindowStateChange` memperbarui property `maximized`, margin root, dan iko
 ## Window state
 `window_state.restore()` di `MainWindow.__init__` (ukuran, posisi, maximized); `window_state.save()` di `closeEvent` (baik hide ke tray maupun keluar). Posisi tersimpan yang tak terlihat di layar mana pun diabaikan.
 
-## Smoke test & build
-- `tools/smoke_test.py` (offscreen, data dir sementara via `APP_DATA_DIR_OVERRIDE`) memeriksa: versi, import semua modul, semua nama ikon qtawesome yang dipakai di kode, token QSS, MainWindow + semua halaman, toast, window state, komponen, dialog, worker, errors, single instance, version info.
-- Tambah halaman/ikon baru = otomatis tercakup (halaman via `PAGES`, ikon via scan source).
-- `build.py` menjalankan smoke test lebih dulu; gagal = build batal.
-- Version info exe dibuat saat build dari `app/meta.py` (`APP_ID`, `APP_DISPLAY_NAME`, `APP_VERSION`, `APP_DESCRIPTION`, `APP_AUTHOR`).
+## Version info exe
+Dibuat saat build oleh `tools/version_info.py` dari `app/meta.py` (`APP_ID`, `APP_DISPLAY_NAME`, `APP_VERSION`, `APP_DESCRIPTION`, `APP_AUTHOR`) lewat `--version-file`.
 
 ## Styling (QSS)
 - Warna dikelola di `TOKENS`, tipografi di `FONT` (`theme.py`); QSS memakai placeholder `@token@`.

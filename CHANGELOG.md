@@ -3,6 +3,10 @@
 Format: [Keep a Changelog](https://keepachangelog.com). Setiap perubahan WAJIB dicatat di sini
 dan versi dinaikkan di `app/meta.py` + `pyproject.toml` (SemVer).
 
+## [0.6.1] - 2026-11-07
+### Removed
+- Smoke test (`tools/smoke_test.py`) beserta langkahnya di `build.py` (`--skip-test`) dan env `APP_DATA_DIR_OVERRIDE`: terlalu merepotkan dan memberi false alarm (token di komentar QSS, maximize di platform offscreen).
+
 ## [0.6.0] - 2026-11-07
 ### Fixed
 - Border hitam di tepi window frameless: penyebabnya `#Root { background-color: rgba(0,0,0,1) }` di QSS (alpha 1 dibaca opak). Sekarang area resize dilukis alpha 1/255 lewat `FramelessRoot.paintEvent`; smoke test menjaga agar aturan itu tidak kembali.

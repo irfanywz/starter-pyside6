@@ -4,7 +4,6 @@ Dev    : BASE_DIR = root proyek,   DATA_DIR = <root>/<APP_ID>_Data
 Frozen : BASE_DIR = folder .exe,   DATA_DIR = <folder exe>/<APP_ID>_Data
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -18,9 +17,7 @@ BASE_DIR: Path = (
     else Path(__file__).resolve().parent.parent
 )
 
-# APP_DATA_DIR_OVERRIDE hanya untuk test (tools/smoke_test.py); jangan dipakai di produksi.
-_override = os.environ.get("APP_DATA_DIR_OVERRIDE")
-DATA_DIR: Path = Path(_override) if _override else BASE_DIR / DATA_DIR_NAME
+DATA_DIR: Path = BASE_DIR / DATA_DIR_NAME
 LOG_DIR: Path = DATA_DIR / "logs"
 SETTINGS_FILE: Path = DATA_DIR / "settings.json"
 CUSTOM_QSS: Path = DATA_DIR / "custom.qss"  # override style oleh user, tanpa rebuild

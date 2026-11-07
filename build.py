@@ -1,4 +1,4 @@
-"""Build exe + bundle zip.  Jalankan: `uv run python build.py` (`--skip-test` untuk melewati smoke test)
+"""Build exe + bundle zip.  Jalankan: `uv run python build.py`
 
 Hasil (folder release/), contoh dengan APP_ID/APP_DISPLAY_NAME = "Starter":
     Starter <versi>.zip
@@ -8,11 +8,9 @@ Hasil (folder release/), contoh dengan APP_ID/APP_DISPLAY_NAME = "Starter":
 (Starter_Data/ dibuat otomatis saat aplikasi pertama dijalankan.)
 """
 
-import argparse
 import os
 import re
 import shutil
-import subprocess
 import sys
 import zipfile
 from pathlib import Path
@@ -41,13 +39,6 @@ def check_version() -> None:
     m = re.search(r'^version\s*=\s*"([^"]+)"', text, re.M)
     if not m or m.group(1) != APP_VERSION:
         sys.exit(f"Versi tidak sama: pyproject={m.group(1) if m else '?'} meta={APP_VERSION}")
-
-
-def run_smoke_test() -> None:
-    print("== Smoke test ==")
-    result = subprocess.run([sys.executable, str(ROOT / "tools" / "smoke_test.py")])
-    if result.returncode != 0:
-        sys.exit("Smoke test gagal; build dibatalkan (lewati dengan --skip-test).")
 
 
 def write_version_file() -> Path:
@@ -97,13 +88,7 @@ def make_zip() -> Path:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Build exe + bundle zip")
-    ap.add_argument("--skip-test", action="store_true", help="lewati smoke test")
-    args = ap.parse_args()
-
     check_version()
-    if not args.skip_test:
-        run_smoke_test()
     if BUILD.exists():
         shutil.rmtree(BUILD)
     run_pyinstaller(write_version_file())

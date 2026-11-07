@@ -5,7 +5,7 @@ Dirancang **portable**: semua data di folder `<APP_ID>_Data` di samping exe.
 
 Fitur bawaan: window frameless + custom titlebar, tray (close = sembunyi ke tray), single instance,
 jalankan saat startup (opsional), toast, dialog konfirmasi, background worker, penangkap error global,
-halaman Tentang, posisi window tersimpan, komponen UI (switch, card, setting row), version info di exe, smoke test, tema dark/light berbasis QSS, ikon, settings otomatis tersimpan.
+halaman Tentang, posisi window tersimpan, komponen UI (switch, card, setting row), version info di exe, tema dark/light berbasis QSS, ikon, settings otomatis tersimpan.
 
 ## Jalankan (dev)
 ```bash
@@ -31,9 +31,7 @@ uv run python build.py
 
 ## Build exe + zip
 ```bash
-uv run python build.py              # menjalankan smoke test dulu
-uv run python build.py --skip-test  # lewati smoke test
-uv run python tools/smoke_test.py   # smoke test saja
+uv run python build.py
 ```
 Hasil: `release/Starter <versi>.zip`
 ```
